@@ -1,7 +1,4 @@
 import React from 'react';
-import {copyrightSign} from '../assets/icons';
-// import {footerLogo} from '../assets/images';
-import {socialMedia} from '../utils/constants';
 import {facebook, twitter, instagram} from '../assets/icons';
 
 const Footer: React.FC = () => {

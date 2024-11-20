@@ -1,4 +1,4 @@
-import {facebook, instagram, twitter} from '../assets/icons';
+import {facebook, instagram, twitter} from '../assets/icons/index.ts';
 
 export const socialMedia = [
     {src: facebook, alt: 'facebook logo'},

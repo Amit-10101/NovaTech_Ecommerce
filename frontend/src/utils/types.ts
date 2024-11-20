@@ -169,3 +169,10 @@ export interface OrderItemProps {
     status: string;
     total_amount: string;
 }
+
+export interface OrderItem {
+    order_item_id: number;
+    price: string;
+    product: ProductResponseBody;
+    quantity: number;
+}

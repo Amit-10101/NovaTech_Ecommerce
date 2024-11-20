@@ -2,19 +2,13 @@ import React from 'react';
 import {useParams} from "react-router-dom";
 import Loading from "../../components/Loading.tsx";
 import {useGetOrderByIdQuery} from "../../api/orderApi.ts";
+import {OrderItem} from "../../utils/types.ts";
 
 const OrderDetails: React.FC = () => {
     const {orderId} = useParams();
     const {data: order, isLoading} = useGetOrderByIdQuery(orderId ?? '', {
         skip: !orderId,
     });
-
-    console.log(order);
-
-    // const status = 'confirmed';
-    // const status = 'dispatched';
-    // const status = 'out-for-delivery';
-    // const status = 'delivered';
 
     const getProgressWidthFromStatus = (status: string) => {
         switch (status) {
@@ -62,7 +56,7 @@ const OrderDetails: React.FC = () => {
                 <div className={"px-6 pb-4"}>
                     <h3 className="text-xl font-semibold mb-2">Order Items</h3>
                     <div className={"grid grid-cols-2 gap-4"}>
-                        {order.order_items.map((item) => (
+                        {order.order_items.map((item: OrderItem) => (
                             <div key={item.order_item_id} className="mb-4 p-4 border rounded-lg">
                                 <div className="flex items-center">
                                     <img

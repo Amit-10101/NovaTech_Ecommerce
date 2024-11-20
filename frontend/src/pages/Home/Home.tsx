@@ -1,35 +1,7 @@
 import React from 'react';
 import Hero from "../../components/Hero.tsx";
 
-// import React from 'react';
-
 const FeaturedProducts = () => {
-    const featuredProducts = [
-        {
-            title: 'PlayStation 5',
-            image: 'https://example.com/ps5.jpg',
-            description: 'Black and White version of the PS5 coming out on sale.',
-            link: '/shop/ps5',
-        },
-        {
-            title: "Women's Collections",
-            image: 'https://example.com/women-fashion.jpg',
-            description: 'Featured woman collections that give you another vibe.',
-            link: '/shop/women',
-        },
-        {
-            title: 'Speakers',
-            image: 'https://example.com/speakers.jpg',
-            description: 'Amazon wireless speakers',
-            link: '/shop/speakers',
-        },
-        {
-            title: 'Perfume',
-            image: 'https://example.com/perfume.jpg',
-            description: 'GUCCI INTENSE OUD EDP',
-            link: '/shop/perfume',
-        },
-    ];
 
     return (
         <div className="container mx-auto  bg-palette-lightGray p-8 py-20 min-h-screen">

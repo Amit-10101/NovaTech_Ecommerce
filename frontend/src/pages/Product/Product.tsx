@@ -28,7 +28,7 @@ const Product: React.FC = () => {
     const rating = {count: 101, rate: 5};
 
     const {data: res, refetch} = useCheckIfInCartByUserIdAndProductIdQuery({
-        userId: user?.user_id ?? '',
+        userId: user?.user_id.toString() ?? '',
         productId: product?.product_id.toString() ?? ''
     }, {
         skip: !user?.user_id || !product?.product_id
@@ -41,7 +41,11 @@ const Product: React.FC = () => {
         if (!productId || !user) return;
 
         try {
-            const {data} = await addToCart({product_id: productId, user_id: user.user_id, quantity: quantity});
+            const {data} = await addToCart({
+                product_id: productId,
+                user_id: user.user_id.toString(),
+                quantity: quantity
+            });
             refetch();
 
             if (data) setToastMessage(data.message);
