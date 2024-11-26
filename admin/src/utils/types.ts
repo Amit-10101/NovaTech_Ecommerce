@@ -22,3 +22,16 @@ export interface Product {
     created_at: Date;
     category_name: string;
 }
+
+export interface TokenVerifyResponse {
+    valid: boolean,
+    user: AdminState,
+    // error?: boolean,
+    // message?: string,
+}
+
+export interface ToastProps {
+    message: string;
+    duration?: number;
+    onClose?: () => void;
+}

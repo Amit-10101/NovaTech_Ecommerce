@@ -58,9 +58,23 @@ CREATE TABLE Products (
  */
 
 
-export interface CategoryState {
+export interface Category {
     category_id: string,
     category_name: string,
+    created_at: Date,
+}
+
+export interface SubCategory {
+    sub_category_id: string,
+    sub_category_name: string,
+    category_id: string,
+    created_at: Date,
+}
+
+export interface Brand {
+    brand_id: string,
+    brand_name: string,
+    created_at: Date,
 }
 
 export interface ProductResponseBody {
@@ -175,4 +189,11 @@ export interface OrderItem {
     price: string;
     product: ProductResponseBody;
     quantity: number;
+}
+
+export interface CustomCheckboxProps {
+    value: string;
+    label: string;
+    // onChange: (...args: (string | number | ((a: string) => void))[]) => void;
+    onChange: () => void;
 }

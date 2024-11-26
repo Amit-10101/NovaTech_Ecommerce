@@ -7,13 +7,13 @@ const initialState: AdminSliceState = {
     isAuthenticated: !!localStorage.getItem("admin-token"),
 };
 
-type UserSlicePayloadState = Omit<AdminSliceState, "isAuthenticated">;
+type AdminSlicePayloadState = Omit<AdminSliceState, "isAuthenticated">;
 
 const adminSlice = createSlice({
     name: 'admin',
     initialState: initialState,
     reducers: {
-        login: (state, action: PayloadAction<UserSlicePayloadState>) => {
+        login: (state, action: PayloadAction<AdminSlicePayloadState>) => {
             state.admin = action.payload.admin;
             state.token = action.payload.token;
             state.isAuthenticated = true;
@@ -25,7 +25,7 @@ const adminSlice = createSlice({
             state.isAuthenticated = false;
             localStorage.removeItem("admin-token");
         },
-        signup: (state, action: PayloadAction<UserSlicePayloadState>) => {
+        signup: (state, action: PayloadAction<AdminSlicePayloadState>) => {
             state.admin = action.payload.admin;
             state.token = action.payload.token;
             state.isAuthenticated = true;

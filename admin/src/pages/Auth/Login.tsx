@@ -2,20 +2,31 @@ import React from 'react';
 import useFormHandler from "../../hooks/useFormHandler.tsx";
 import {useAdminLoginMutation} from "../../apis/adminApi.ts";
 import {useNavigate} from "react-router-dom";
+import Toast from "../../components/Toast.tsx";
+import {useDispatch} from "react-redux";
+import {login} from "../../features/adminSlice.ts";
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 const Login: React.FC = () => {
     const { formData, changeHandler, resetForm } = useFormHandler({ email: '', password: '' });
 
     const [adminLogin] = useAdminLoginMutation();
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         // Call the login API here
-        const {data} = await adminLogin(formData);
-        console.log(data);
-        navigate('/dashboard');
-        resetForm();
+        try {
+            const response = await adminLogin(formData).unwrap();
+            console.log(response);
+            dispatch(login({admin: response.admin, token: response.token}))
+            navigate('/dashboard');
+            resetForm();
+        } catch (e) {
+            return <Toast message={error?.message}/>;
+        }
     };
 
     return (

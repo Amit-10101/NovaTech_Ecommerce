@@ -1,18 +1,18 @@
-import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {ProductResponseBody} from "../utils/types.ts";
+import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
+import {Brand, Category, ProductResponseBody, SubCategory} from '../utils/types.ts';
 
 const productApi = createApi({
-    reducerPath: "productApi",
+    reducerPath: 'productApi',
     baseQuery: fetchBaseQuery({baseUrl: import.meta.env.VITE_SERVER_URL}),
     // baseQuery: fetchBaseQuery({baseUrl: "https://fakestoreapi.com"}),
     endpoints: (builder) => ({
         getAllProducts: builder.query<ProductResponseBody[], void>({
-            query: () => '/product/getAllProducts'
+            query: () => '/product/getAllProducts',
             // query: () => '/products'
         }),
 
         getProductById: builder.query<ProductResponseBody, string>({
-            query: (productId) => `/product/getProduct/${productId}`
+            query: (productId) => `/product/getProduct/${productId}`,
             // query: (productId) => `/products/${productId}`
         }),
 
@@ -20,33 +20,49 @@ const productApi = createApi({
             query: (product) => ({
                 url: '/product/createProduct',
                 // url: '/product',
-                method: "POST",
+                method: 'POST',
                 body: product,
-            })
+            }),
         }),
 
         updateProduct: builder.mutation({
             query: (product) => ({
                 url: '/product/updateProduct',
                 // url: '/product',
-                method: "PUT",
+                method: 'PUT',
                 body: product,
-            })
+            }),
         }),
 
         deleteProduct: builder.mutation({
             query: (productId) => ({
                 url: '/product/deleteProduct',
                 // url: '/product',
-                method: "DELETE",
+                method: 'DELETE',
                 body: {productId: productId},
-            })
+            }),
         }),
 
         searchProduct: builder.query<ProductResponseBody[], string>({
-            query: (searchQuery) => `/product/searchProduct/${searchQuery}`
-        })
-    })
+            query: (searchQuery) => `/product/searchProduct/${searchQuery}`,
+        }),
+
+        filterProduct: builder.query<ProductResponseBody[], string>({
+            query: (filterQuery) => `/product/filterProducts?${filterQuery}`,
+        }),
+
+        getAllCategories: builder.query<Category[], void>({
+            query: () => `/category/getAllCategories`,
+        }),
+
+        getAllSubCategories: builder.query<SubCategory[], void>({
+            query: () => `/subCategory/getAllSubCategories`,
+        }),
+
+        getAllBrands: builder.query<Brand[], void>({
+            query: () => `/brand/getAllBrands`,
+        }),
+    }),
 });
 
 export const {
@@ -55,6 +71,10 @@ export const {
     useCreateProductMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
-    useSearchProductQuery
+    useSearchProductQuery,
+    useFilterProductQuery,
+    useGetAllCategoriesQuery,
+    useGetAllSubCategoriesQuery,
+    useGetAllBrandsQuery,
 } = productApi;
 export default productApi;

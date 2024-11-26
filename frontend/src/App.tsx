@@ -49,7 +49,7 @@ const App: React.FC = () => {
 
     return (
         // <div className="bg-gray-900 text-white min-h-screen flex justify-center items-center font-bold text-3xl">App</div>
-        <div>
+        <div className={"h-full w-full"}>
             <Navbar/>
             <Routes>
                 <Route path="/" element={<Home/>}/>

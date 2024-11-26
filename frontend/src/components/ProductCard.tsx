@@ -31,15 +31,15 @@ const ProductCard: React.FC<ProductState> = ({
     return (
         <div
             ref={componentRef}
-            className="rounded-md h-[27rem] shadow-lg border cursor-pointer hover:scale-105 ease-in-out duration-300 transition-all bg-white"
+            className="rounded-md h-[20rem] w-full shadow-lg border cursor-pointer hover:scale-105 ease-in-out duration-300 transition-all bg-white"
             onClick={() => navigate(`/product/${productId}`)}
         >
             {/*<Image url={image} altText={title}/>*/}
             <img src={image} alt={title} className="w-full h-3/5 object-contain border-b object-center"/>
-            <div className={"px-6 py-4"}>
-                <h1 className={"font-bold text-lg"}>{title}</h1>
-                <h4 className={"font-medium"}>₹ {price}</h4>
-                <h6 className={"font-light text-gray-600 text-sm my-1"}>{categoryName}</h6>
+            <div className={"px-4 py-3 w-full"}>
+                <h1 className="font-bold truncate w-full">{title}</h1>
+                <h4 className={"font-medium text-md my-1"}>₹ {price}</h4>
+                <h6 className={"font-light text-gray-600 text-xs my-1"}>{categoryName}</h6>
                 <div>
                     <Rating count={rating.count} stars={rating.stars}/>
                 </div>

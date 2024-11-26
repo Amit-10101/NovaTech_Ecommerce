@@ -24,6 +24,14 @@ class CategoryController extends BaseController {
         }
     }
 
+    public function getAllCategories(): void {
+        $query = 'SELECT * FROM ' . Category::getTableName();
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        $categories = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $this->sendResponse($categories);
+    }
+
     public function getCategory(int $id, bool $send = false): ?Category {
         $query = 'SELECT * FROM ' . Category::getTableName() . ' WHERE category_id = :category_id';
         $stmt = $this->conn->prepare($query);

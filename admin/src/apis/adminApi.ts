@@ -1,5 +1,5 @@
 import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react";
-import {Product} from "../utils/types.ts";
+import {Product, TokenVerifyResponse} from "../utils/types.ts";
 
 const adminApi = createApi({
     reducerPath: 'adminApi',
@@ -13,7 +13,15 @@ const adminApi = createApi({
             })
         }),
 
-        addProduct: builder.mutation<{message: string, product: Product}, Product>({
+        getAdminFromToken: builder.mutation<TokenVerifyResponse, string>({
+            query: (token: string) => ({
+                url: '/admin/verifyToken',
+                method: "POST",
+                body: {token: token},
+            })
+        }),
+
+        addProduct: builder.mutation<{ message: string, product: Product }, Product>({
             query: (productDetails) => ({
                 url: '/product/createProduct',
                 method: 'POST',
@@ -29,7 +37,7 @@ const adminApi = createApi({
             query: (productId) => `/product/getProduct/${productId}`
         }),
 
-        updateProduct: builder.mutation<{message: string, product: Product}, Product>({
+        updateProduct: builder.mutation<{ message: string, product: Product }, Product>({
             query: (productDetails) => ({
                 url: '/product/updateProduct',
                 method: 'PUT',
@@ -37,14 +45,22 @@ const adminApi = createApi({
             })
         }),
 
-        deleteProduct: builder.mutation<{message: string}, string>({
+        deleteProduct: builder.mutation<{ message: string }, string>({
             query: (productId) => ({
                 url: `/product/deleteProduct/${productId}`,
                 method: 'DELETE',
             })
         }),
     })
-})
+});
 
-export const {useAdminLoginMutation, useAddProductMutation, useGetAllProductsQuery, useGetProductByIdQuery, useUpdateProductMutation, useDeleteProductMutation} = adminApi;
+export const {
+    useAdminLoginMutation,
+    useGetAdminFromTokenMutation,
+    useAddProductMutation,
+    useGetAllProductsQuery,
+    useGetProductByIdQuery,
+    useUpdateProductMutation,
+    useDeleteProductMutation
+} = adminApi;
 export default adminApi;

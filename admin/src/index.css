@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -6,4 +8,38 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    font-family: Inter, serif;
+}
+
+@layer utilities {
+    .transition-ease-md {
+        transition: all 0.3s ease-in-out;
+    }
+
+    .transition-ease-lg {
+        transition: all 0.5s ease-in-out;
+    }
+}
+
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #AAAAAA;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: #999;
+    transition-duration: 400ms;
+    transition-timing-function: ease-in-out;
 }

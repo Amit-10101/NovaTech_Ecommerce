@@ -60,6 +60,30 @@ class AdminController extends BaseController {
         }
     }
 
+    public function verifyToken(): void {
+        $data = json_decode(file_get_contents("php://input"), true);
+        $token = $data['token'];
+
+        if (empty($token)) {
+            $this->sendError("Token not found");
+        }
+
+        $verified = $this->jwt->verifyJWT($token);
+        if ($verified['valid']) {
+            $admin = $this->getAdminById($verified['data']['userId']);
+
+            $this->sendResponse(array(
+                "valid" => true,
+                "admin" => $admin->getAdminDetails(),
+            ), 200);
+        } else {
+//            $this->sendResponse("Invalid token", 401);
+            $this->sendResponse(array(
+                "valid" => false,
+            ), 401);
+        }
+    }
+
     public function getAdminByEmail(string $email): ?Admin {
         $query = 'SELECT * FROM ' . Admin::getTableName() . ' WHERE email = :email';
         $stmt = $this->conn->prepare($query);
@@ -74,7 +98,7 @@ class AdminController extends BaseController {
         return null;
     }
 
-    public function getAdminById(int $adminId): void {
+    public function getAdminById(int $adminId, bool $send = false): ?Admin {
         $query = 'SELECT * FROM ' . Admin::getTableName() . ' WHERE admin_id = :admin_id';
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':admin_id', $adminId);
@@ -82,7 +106,11 @@ class AdminController extends BaseController {
         $admin = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($admin) {
-            $this->sendResponse($admin);
+            if ($send) {
+                $this->sendResponse($admin);
+            } else {
+                return new Admin($admin);
+            }
         } else {
             $this->sendError('Admin not found', 404);
         }
@@ -92,9 +120,11 @@ class AdminController extends BaseController {
         $data = json_decode(file_get_contents("php://input"), true);
         $query = 'UPDATE ' . Admin::getTableName() . ' SET username = :username, password = :password, email = :email WHERE admin_id = :admin_id';
 
+        $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
+
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(':username', $data['username']);
-        $stmt->bindParam(':password', password_hash($data['password'], PASSWORD_BCRYPT));
+        $stmt->bindParam(':password', $hashedPassword);
         $stmt->bindParam(':email', $data['email']);
         $stmt->bindParam(':admin_id', $adminId);
 

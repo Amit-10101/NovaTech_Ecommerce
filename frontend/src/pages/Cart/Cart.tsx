@@ -75,7 +75,7 @@ const Cart: React.FC = () => {
                         ))}
                         <div className="mt-8 flex justify-between p-4">
                             <span className="text-3xl font-bold">
-                                Total Price: <span className="text-red-500">₹ {totalPrice}</span>
+                                Total Price: <span className="text-red-500">₹ {totalPrice.toFixed(2)}</span>
                             </span>
 
                             <button

@@ -67,20 +67,24 @@ const Product: React.FC = () => {
     };
 
     return (
-        <div className="w-full h-full flex justify-between min-h-[85vh] mb-16">
-            <div className="w-1/2 p-8 flex justify-center items-center">
-                <img src={product.image_url} alt={product.product_name} className="h-3/4"/>
+        <div className="w-full h-full flex flex-col lg:flex-row justify-between min-h-[85vh] mb-16">
+            <div className="w-full lg:w-1/2 p-8 flex justify-center items-center">
+                <img src={product.image_url} alt={product.product_name} className="w-4/5"/>
             </div>
 
-            <div className="w-1/2 h-full my-auto p-8">
-                <h1 className="text-5xl font-bold mt-10 mb-2">{product.product_name}</h1>
+            <div className="w-full lg:w-1/2 h-full my-auto p-8">
+                <h1 className="text-4xl font-extrabold tracking-wide mt-10 mb-2">{product.product_name}</h1>
 
-                <Rating count={rating.count} stars={rating.rate} otherClasses="mt-2 mb-6"/>
+                <Rating count={rating.count} stars={rating.rate} type={'md'} otherClasses="mt-3 mb-6"/>
 
-                <h3 className="text-3xl font-semibold my-6">₹ {product.price}</h3>
+                <h3 className="text-2xl font-bold my-6">₹ {product.price}</h3>
 
-                <h4 className="my-6">
+                <h4 className="mt-6 mb-2">
                     <span className="font-medium mb-2">Category:</span> {product.category_name}
+                </h4>
+
+                <h4 className="mt-3 mb-6">
+                    <span className="font-medium mb-2">Sub-Category:</span> {product.sub_category_name}
                 </h4>
 
                 <div>
@@ -118,7 +122,7 @@ const Product: React.FC = () => {
                             {res?.found ? (
                                 <button
                                     onClick={() => navigate('/cart')}
-                                    className="w-1/2 mt-10 flex justify-center items-center gap-4 bg-palette-red hover:bg-palette-darkRed hover:shadow-lg ease-in-out transition duration-300 text-white rounded-lg py-4 px-24"
+                                    className="w-full sm:w-1/2 mt-10 flex justify-center items-center gap-4 bg-palette-red hover:bg-palette-darkRed hover:shadow-lg ease-in-out transition duration-300 text-white rounded-lg py-4 px-24"
                                 >
                                     <FontAwesomeIcon icon={faCartShopping}/>
                                     Go to Cart
@@ -126,7 +130,7 @@ const Product: React.FC = () => {
                             ) : (
                                 <button
                                     onClick={handleAddToCart}
-                                    className="w-1/2 mt-10 flex justify-center items-center gap-4 bg-palette-red hover:bg-palette-darkRed hover:shadow-lg ease-in-out transition duration-300 text-white rounded-lg py-4 px-24"
+                                    className="w-full sm:w-1/2 mt-10 flex justify-center items-center gap-4 bg-palette-red hover:bg-palette-darkRed hover:shadow-lg ease-in-out transition duration-300 text-white rounded-lg py-4 px-24"
                                 >
                                     <FontAwesomeIcon icon={faCartShopping}/>
                                     Add to Cart
